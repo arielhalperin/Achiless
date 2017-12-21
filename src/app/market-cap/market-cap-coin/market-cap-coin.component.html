@@ -1,0 +1,5 @@
+<tr>
+  <td>{{marketCapCoin.name}}</td>
+  <td>{{marketCapCoin.price_usd}}</td>
+  <td [ngStyle] ="{'color': marketCapCoin.percent_change_24h > 0 ? 'green' : marketCapCoin.percent_change_24h < 0 ? 'red' : 'grey'}" >{{marketCapCoin.percent_change_24h}}</td>
+</tr>

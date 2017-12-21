@@ -81,10 +81,10 @@
       "check-whitespace"
     ],
     "prefer-const": true,
-    "quotemark": [
-      true,
-      "single"
-    ],
+    //    "quotemark": [
+    //      true
+    //      "single"
+    //    ],
     "radix": true,
     "semicolon": [
       true,
@@ -118,13 +118,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
+      "thor",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "achiless",
       "kebab-case"
     ],
     "use-input-property-decorator": true,
