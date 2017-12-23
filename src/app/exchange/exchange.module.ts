@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExchangeComponent } from './exchange/exchange.component';
-import { CoinFromComponent } from './coin-from/coin-from.component';
-import { CoinToComponent } from './coin-to/coin-to.component';
 import {DropdownModule} from "primeng/primeng";
 import {ExchangeService} from "./shared/exchange.service";
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { CoinAmountComponent } from './coin-amount/coin-amount.component';
 
 @NgModule({
   imports: [
@@ -15,7 +14,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     FormsModule,
     BrowserAnimationsModule
   ],
-  declarations: [ExchangeComponent, CoinFromComponent, CoinToComponent],
+  declarations: [ExchangeComponent, CoinAmountComponent],
   providers: [ExchangeService],
   exports: [ExchangeComponent]
 })

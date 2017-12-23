@@ -8,7 +8,7 @@
     <tbody>
     <tr *ngFor="let coinCap of marketCap">
       <td>{{coinCap.name}} ({{coinCap.symbol}})</td>
-      <td>{{coinCap.price_usd}}%</td>
+      <td>{{coinCap.price_usd}}$</td>
       <td [ngStyle] ="{'color': coinCap.percent_change_24h > 0 ? 'green' : coinCap.percent_change_24h < 0 ? 'red' : 'grey'}" >{{coinCap.percent_change_24h}}%</td>
     </tr>
     <!--<achiless-market-cap-coin *ngFor="let marketCapCoin of marketCap" [marketCapCoin]="marketCapCoin">></achiless-market-cap-coin>-->

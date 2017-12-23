@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CoinFromComponent } from './coin-from.component';
+import { CoinAmountComponent } from './coin-amount.component';
 
-describe('CoinFromComponent', () => {
-  let component: CoinFromComponent;
-  let fixture: ComponentFixture<CoinFromComponent>;
+describe('CoinAmountComponent', () => {
+  let component: CoinAmountComponent;
+  let fixture: ComponentFixture<CoinAmountComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CoinFromComponent ]
+      declarations: [ CoinAmountComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CoinFromComponent);
+    fixture = TestBed.createComponent(CoinAmountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
