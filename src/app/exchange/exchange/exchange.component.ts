@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ExchangeService} from "../shared/exchange.service";
+import {SelectItem} from "primeng/primeng";
 
 @Component({
   selector: 'achiless-exchange',
@@ -8,17 +9,49 @@ import {ExchangeService} from "../shared/exchange.service";
 })
 export class ExchangeComponent implements OnInit {
 
+  coins: SelectItem[] ;
+  fromCurrency = "BTC";
+  fromAmount = 1;
+  toAmount = 1;
+  toCurrency = "ETH";
+
   constructor(private exchangeService: ExchangeService) { }
 
   ngOnInit() {
+    this.exchangeService.getMarketCap().subscribe( coins => {
+
+      this.coins = this.createCoinsSelectedItemArray(coins);
+      this.toAmount = this.exchangeService.calculateAmount(this.fromCurrency, this.toCurrency, this.fromAmount);
+      //console.log(JSON.stringify(this.coins));
+    });
+
     this.exchangeService.amountIsChanged.subscribe((amount) => {
-      console.log("exchange:" + amount);
+      this.toAmount = this.exchangeService.calculateAmount(this.fromCurrency, this.toCurrency, amount);
     });
 
     this.exchangeService.currencyIsChanged.subscribe((currency) => {
-      console.log("exchange:" + currency);
+      this[currency.exchangeSide] = currency.currency;
+      this.toAmount = this.exchangeService.calculateAmount(this.fromCurrency, this.toCurrency, this.fromAmount);
+
     });
   }
 
+  switchCurrencies() {
+    const tempCurrency = this.fromCurrency;
+    this.fromCurrency = this.toCurrency;
+    this.toCurrency = tempCurrency;
+    this.toAmount = this.exchangeService.calculateAmount(this.fromCurrency, this.toCurrency, this.fromAmount);
+  }
 
+  createCoinsSelectedItemArray(coins) {
+    const parsedCoins: SelectItem[] = [];
+    for (let coin of coins) {
+      parsedCoins.push({
+        label: coin.name + " (" + coin.symbol + ")",
+        value: coin.symbol
+      });
+    }
+
+    return parsedCoins;
+  }
 }

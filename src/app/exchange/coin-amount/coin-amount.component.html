@@ -1,5 +1,9 @@
-<div class="row">
-  <input type="number" class="form-control" (ngModelChange)="onAmountChange(amount)" [(ngModel)]="amount" placeholder="Amount" [disabled] ="disabled">
-  <p-dropdown [options]="coins" [(ngModel)]="selectedCoin" (onChange)="onCoinChange($event.value)"></p-dropdown>
+<div class="form-group">
+  <div class="col-sm-6">
+    <p-dropdown [options]="coins" [(ngModel)]="selectedCoin" (onChange)="onCoinChange($event.value)"></p-dropdown>
+  </div>
+  <div class="col-sm-6">
+    <input type="number" class="form-control" (change)="onAmountChange(amount)" [(ngModel)]="amount" placeholder="Amount" [disabled] ="disabled">
+  </div>
 </div>
 

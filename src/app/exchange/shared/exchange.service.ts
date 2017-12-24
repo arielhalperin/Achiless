@@ -5,15 +5,23 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class ExchangeService {
 
+  marketCap = null;
+
   constructor(private http: HttpClient) { }
   amountIsChanged = new EventEmitter();
   currencyIsChanged = new EventEmitter();
 
+
   getMarketCap(limit = 10) {
     try {
+      if (this.marketCap) {
+        return this.marketCap;
+      }
+
       // return this.http.get(environment.ServerUrl);
       return this.http.get("https://api.coinmarketcap.com/v1/ticker/?limit=10")
         .map((response) => {
+        this.marketCap = response;
           return response;
         })
         .catch((error: Response) => {
@@ -30,7 +38,20 @@ export class ExchangeService {
   }
 
   currencyChange(currency) {
+
     this.currencyIsChanged.emit(currency);
+  }
+
+  calculateAmount(fromCurrency, toCurrency, fromAmount) {
+    const marketCap = this.getMarketCap();
+    const fromCurrencyObject = marketCap.find((elem) => {
+      return elem.symbol === fromCurrency;
+    });
+    const toCurrencyObject = marketCap.find((elem) => {
+      return elem.symbol === toCurrency;
+    });
+    return fromCurrencyObject.price_usd / toCurrencyObject.price_usd * fromAmount;
+
   }
 
 }
