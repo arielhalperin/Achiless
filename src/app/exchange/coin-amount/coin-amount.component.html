@@ -3,7 +3,21 @@
     <p-dropdown [options]="coins" [(ngModel)]="selectedCoin" (onChange)="onCoinChange($event.value)"></p-dropdown>
   </div>
   <div class="col-sm-6">
-    <input type="number" class="form-control" (change)="onAmountChange(amount)" [(ngModel)]="amount" placeholder="Amount" [disabled] ="disabled">
+    <input type="number" class="form-control"
+           [(ngModel)]="amount"
+           (ngModelChange)="onAmountChange($event)"
+           placeholder="Amount" [disabled] ="disabled"
+    >
   </div>
 </div>
+
+<p-autoComplete [(ngModel)]="selectedCoin"  [dropdown]="true"
+                [suggestions]="results" field="name" (completeMethod)="searchCoins($event)" (onSelect)="onCoinChange(event)"
+>
+
+  <ng-template let-coin pTemplate="item">
+    <span>{{coin.name}} ({{coin.symbol}})</span>
+  </ng-template>
+
+</p-autoComplete>
 

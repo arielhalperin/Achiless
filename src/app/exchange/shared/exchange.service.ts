@@ -15,7 +15,7 @@ export class ExchangeService {
   getMarketCap(limit = 10) {
     try {
       if (this.marketCap) {
-        return this.marketCap;
+        return Observable.of(this.marketCap);
       }
 
       // return this.http.get(environment.ServerUrl);
@@ -43,15 +43,13 @@ export class ExchangeService {
   }
 
   calculateAmount(fromCurrency, toCurrency, fromAmount) {
-    const marketCap = this.getMarketCap();
-    const fromCurrencyObject = marketCap.find((elem) => {
+    const fromCurrencyObject = this.marketCap.find((elem) => {
       return elem.symbol === fromCurrency;
     });
-    const toCurrencyObject = marketCap.find((elem) => {
+    const toCurrencyObject = this.marketCap.find((elem) => {
       return elem.symbol === toCurrency;
     });
     return fromCurrencyObject.price_usd / toCurrencyObject.price_usd * fromAmount;
-
   }
 
 }

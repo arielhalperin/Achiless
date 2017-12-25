@@ -19,13 +19,12 @@ export class ExchangeComponent implements OnInit {
 
   ngOnInit() {
     this.exchangeService.getMarketCap().subscribe( coins => {
-
       this.coins = this.createCoinsSelectedItemArray(coins);
       this.toAmount = this.exchangeService.calculateAmount(this.fromCurrency, this.toCurrency, this.fromAmount);
-      //console.log(JSON.stringify(this.coins));
     });
 
     this.exchangeService.amountIsChanged.subscribe((amount) => {
+      this.fromAmount = amount;
       this.toAmount = this.exchangeService.calculateAmount(this.fromCurrency, this.toCurrency, amount);
     });
 
