@@ -12,14 +12,11 @@ export class CoinAmountComponent implements OnInit {
 
   @Input() amount;
   @Input() selectedCoin;
-  @Input() coins: SelectItem[];
+  @Input() coins = [];
   @Input() disabled: boolean;
   @Input() exchangeSide;
 
-  results: string[];
-
   constructor(private exchangeService: ExchangeService) {
-
   }
 
   ngOnInit() {
@@ -54,15 +51,15 @@ export class CoinAmountComponent implements OnInit {
     // this.results = parsedCoins;
     const query = event.query;
     this.exchangeService.getMarketCap().subscribe( coins => {
-      const parsedCoins = [];
+      const filterCoins = [];
 
       for (let coin of coins) {
         if (coin.symbol.toLowerCase().indexOf(query) !== -1 || coin.name.toLowerCase().indexOf(query) !== -1) {
-          parsedCoins.push(coin);
+          filterCoins.push(coin);
         }
       }
 
-      this.results = parsedCoins;
+      this.coins = filterCoins;
     });
   }
 

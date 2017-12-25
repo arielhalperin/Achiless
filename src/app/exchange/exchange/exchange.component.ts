@@ -9,17 +9,27 @@ import {SelectItem} from "primeng/primeng";
 })
 export class ExchangeComponent implements OnInit {
 
-  coins: SelectItem[] ;
-  fromCurrency = "BTC";
+  coins = [] ;
+  fromCurrency;
+  toCurrency;
   fromAmount = 1;
   toAmount = 1;
-  toCurrency = "ETH";
 
   constructor(private exchangeService: ExchangeService) { }
 
   ngOnInit() {
     this.exchangeService.getMarketCap().subscribe( coins => {
-      this.coins = this.createCoinsSelectedItemArray(coins);
+      for (let coin of coins){
+        if (coin.symbol.toLowerCase() === 'btc') {
+          this.fromCurrency = coin;
+        }
+
+        if (coin.symbol.toLowerCase() === 'eth') {
+          this.toCurrency = coin;
+        }
+      }
+
+      this.coins = coins;//this.createCoinsSelectedItemArray(coins);
       this.toAmount = this.exchangeService.calculateAmount(this.fromCurrency, this.toCurrency, this.fromAmount);
     });
 

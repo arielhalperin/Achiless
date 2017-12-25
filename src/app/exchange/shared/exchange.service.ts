@@ -43,13 +43,7 @@ export class ExchangeService {
   }
 
   calculateAmount(fromCurrency, toCurrency, fromAmount) {
-    const fromCurrencyObject = this.marketCap.find((elem) => {
-      return elem.symbol === fromCurrency;
-    });
-    const toCurrencyObject = this.marketCap.find((elem) => {
-      return elem.symbol === toCurrency;
-    });
-    return fromCurrencyObject.price_usd / toCurrencyObject.price_usd * fromAmount;
+    return fromCurrency.price_usd / toCurrency.price_usd * fromAmount;
   }
 
 }
