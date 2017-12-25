@@ -29,7 +29,7 @@ export class ExchangeComponent implements OnInit {
         }
       }
 
-      this.coins = coins;//this.createCoinsSelectedItemArray(coins);
+      this.coins = coins;
       this.toAmount = this.exchangeService.calculateAmount(this.fromCurrency, this.toCurrency, this.fromAmount);
     });
 
@@ -52,15 +52,9 @@ export class ExchangeComponent implements OnInit {
     this.toAmount = this.exchangeService.calculateAmount(this.fromCurrency, this.toCurrency, this.fromAmount);
   }
 
-  createCoinsSelectedItemArray(coins) {
-    const parsedCoins: SelectItem[] = [];
-    for (let coin of coins) {
-      parsedCoins.push({
-        label: coin.name + " (" + coin.symbol + ")",
-        value: coin.symbol
-      });
-    }
-
-    return parsedCoins;
+  performTransaction() {
+    this.exchangeService.performTransaction(this.fromCurrency, this.toCurrency, this.fromAmount).subscribe((transaction) => {
+      console.log(transaction);
+    });
   }
 }

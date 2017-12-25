@@ -1,6 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class ExchangeService {
@@ -46,4 +47,21 @@ export class ExchangeService {
     return fromCurrency.price_usd / toCurrency.price_usd * fromAmount;
   }
 
+  performTransaction(fromCurrency, toCurrency, amount) {
+    const transaction = {
+      "fromCurrency": fromCurrency.symbol,
+      "toCurrency": toCurrency.symbol,
+      "amount": amount,
+      "amount_usd": fromCurrency.price_usd * amount,
+      "amount_btc": fromCurrency.price_btc * amount,
+    };
+    return this.http.post(environment.ServerUrl + '/transaction', transaction).map((response: Response) => {
+      const result = response;
+
+      return result;
+    })
+      .catch((error: Response) => {
+        return Observable.throw(error);
+      });
+  }
 }
